@@ -1,0 +1,108 @@
+/*
+Template Name: Minton - Vuejs Responsive Bootstrap 4 Admin Dashboard
+Author: themesbrand
+Version: 5.0.0
+Website: https://themesbrand.com/
+Contact: support@themesbrand.com
+File: Main Css File (Default Demo)
+*/
+
+//Fonts
+@import "fonts/fonts";
+
+//Core files
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "abstract/variables";
+@import "./node_modules/bootstrap/scss/mixins.scss";
+@import "base/bootstrap-modern";
+
+// Structure
+@import "base/general";
+@import "layout/left-menu";
+@import "layout/topbar";
+@import "layout/page-head";
+@import "layout/footer";
+@import "layout/right-sidebar";
+@import "base/layouts";
+@import "layout/horizontal-nav";
+@import "layout/two-column-menu";
+
+//Components
+@import "components/avatar";
+@import "components/helper";
+@import "components/social";
+@import "components/widgets";
+@import "components/custom-checkbox";
+@import "components/custom-radio";
+@import "components/ribbons";
+@import "components/print";
+@import "components/preloader";
+
+//Pages
+@import "pages/authentication";
+@import "pages/components-demo";
+@import "pages/error";
+@import "pages/logout";
+@import "pages/faq";
+@import "pages/maintenance";
+@import "pages/timeline";
+@import "pages/email";
+@import "pages/sitemap";
+@import "pages/search-results";
+@import "pages/pricing";
+@import "pages/coming-soon";
+@import "pages/profile";
+@import "pages/chat";
+@import "pages/task";
+@import "pages/kanbanboard";
+@import "pages/ecommerce";
+@import "pages/order-detail";
+
+// Plugins
+@import "plugins/apexcharts";
+@import "plugins/ion-rangeslider";
+@import "plugins/calendar";
+@import "plugins/colorpicker";
+@import "plugins/datatable";
+@import "plugins/daterange";
+@import "plugins/form-wizard";
+@import "plugins/select2";
+@import "plugins/slimscroll";
+@import "plugins/sweetalert";
+@import "plugins/selectize";
+@import "plugins/tippy";
+@import "plugins/nestable-list";
+@import "plugins/hopscotch";
+@import "plugins/chartjs";
+@import "plugins/chartist";
+@import "plugins/c3";
+@import "plugins/responsive-table";
+@import "plugins/bootstrap-tables";
+@import "plugins/multiple-select";
+@import "plugins/autocomplete";
+@import "plugins/bootstrap-select";
+@import "plugins/bootstrap-touchspin";
+@import "plugins/parsley";
+@import "plugins/flatpickr";
+@import "plugins/quilljs-editor";
+@import "plugins/dropzone";
+@import "plugins/google-maps";
+@import "plugins/datepicker";
+@import "plugins/dragula";
+@import "plugins/switcher";
+@import "plugins/ck-editor";
+
+// icons
+@import "plugins/icons";
+
+// RTL
+@import "rtl/general-rtl";
+@import "rtl/bootstrap-rtl";
+@import "rtl/spacing-rtl";
+@import "rtl/float-rtl";
+@import "rtl/text-rtl";
+@import "rtl/structure-rtl";
+@import "rtl/plugins-rtl";
+@import "rtl/components-rtl";
+@import "rtl/pages-rtl";
