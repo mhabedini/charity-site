@@ -72,7 +72,7 @@ $body-min-height: 1550px;
 
 
 // Secondary font
-$font-family-secondary: 'IBM Plex Sans', sans-serif;
+$font-family-secondary: IRANSansWEB, 'IBM Plex Sans', sans-serif;
 
 // Font weight
 $font-weight-medium: 500;
@@ -408,7 +408,7 @@ $embed-responsive-aspect-ratios: join(
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif: 'IBM Plex Sans', sans-serif;
+$font-family-sans-serif: IRANSansWEB, 'IBM Plex Sans', sans-serif;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
 // stylelint-enable value-keyword-case

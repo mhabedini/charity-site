@@ -18,15 +18,17 @@ File: Main Css File (Default Demo)
 @import "base/bootstrap-modern";
 
 // Structure
-@import "base/general";
 @import "layout/left-menu";
 @import "layout/topbar";
 @import "layout/page-head";
 @import "layout/footer";
 @import "layout/right-sidebar";
-@import "base/layouts";
 @import "layout/horizontal-nav";
 @import "layout/two-column-menu";
+
+@import "base/layouts";
+@import "base/typography";
+@import "base/general";
 
 //Components
 @import "components/avatar";
