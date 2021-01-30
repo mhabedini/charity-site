@@ -4,12 +4,7 @@ export default {
 
   loading: "~/components/loading.vue",
   router: {
-    extendRoutes(routes) {
-      routes.push({
-        path: "/",
-        component: "~/pages/dashboard/sales/index.vue"
-      });
-    }
+    middleware: ['auth'],
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -38,6 +33,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '~/plugins/axios',
     "~/plugins/fireauth.js",
     "~/plugins/fakeauth.js",
     "~/plugins/simplebar.js",
@@ -58,7 +54,7 @@ export default {
     locales: ['en', 'fr', 'es', 'ar', 'fa'],
     defaultLocale: 'fa',
     vueI18n: {
-      fallbackLocale: 'en',
+      fallbackLocale: 'fa',
       messages: {
         en: require('./locales/en.json'),
         fr: require('./locales/fr.json'),
@@ -81,8 +77,29 @@ export default {
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     'bootstrap-vue/nuxt',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          type: 'Bearer'
+        },
+        endpoints: {
+          login: {url: '/auth/login/password', method: 'post', propertyName: 'data.auth_token'},
+          logout: {url: '/auth/logout', method: 'post'},
+          user: {url: '/user/profile', method: 'get', propertyName: 'data'}
+        }
+      }
+    }
+  },
+
+  axios: {
+    baseURL: 'http://api.bazarshahr.test/v1',
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

@@ -40,6 +40,7 @@ export default {
       text: null,
       flag: null,
       value: null,
+      user: this.$auth.user
     };
   },
   mounted() {
@@ -112,9 +113,7 @@ export default {
      */
     logoutUser() {
       if (process.env.auth === "firebase") {
-        this.$store.dispatch("auth/logOut");
       } else if (process.env.auth === "fakebackend") {
-        this.$store.dispatch("authfack/logout");
       }
       this.$router.push({
         path: "/account/login",
@@ -177,7 +176,8 @@ export default {
                 </a>
               </div>
               <div class="col">
-                <a class="dropdown-icon-item" target="_blank" href="https://gitlab.bazarshahr.dev/general/bazarshahr-issue">
+                <a class="dropdown-icon-item" target="_blank"
+                   href="https://gitlab.bazarshahr.dev/general/bazarshahr-issue">
                   <img src="~/assets/images/brands/issue.png" alt="Gitlab issue"/>
                   <span>{{ $t('navbar.dropdown.site.list.issue') }}</span>
                 </a>
@@ -324,7 +324,7 @@ export default {
             <div class="nav-user mr-0">
               <img src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle"/>
               <span class="pro-user-name ml-1">
-                            {{ $t('navbar.dropdown.name.text') }}
+                            {{ user.first_name + ' ' + user.last_name }}
                             <i class="mdi mdi-chevron-down"></i>
                         </span>
             </div>

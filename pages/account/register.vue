@@ -63,29 +63,7 @@ export default {
                     // Reset the regError if it existed.
                     this.regError = null;
                     return (
-                        this.$store
-                        .dispatch("auth/register", {
-                            email: this.user.email,
-                            password: this.user.password,
-                        })
-                        // eslint-disable-next-line no-unused-vars
-                        .then((token) => {
-                            this.tryingToRegister = false;
-                            this.isRegisterError = false;
-                            this.registerSuccess = true;
-                            if (this.registerSuccess) {
-                                this.$router.push(
-                                    this.$route.query.redirectFrom || {
-                                        path: "/"
-                                    }
-                                );
-                            }
-                        })
-                        .catch((error) => {
-                            this.tryingToRegister = false;
-                            this.regError = error ? error : "";
-                            this.isRegisterError = true;
-                        })
+                        null
                     );
                 } else if (process.env.auth === "fakebackend") {
                     const {

@@ -21,7 +21,7 @@ export default {
     </div>
     <!-- end page -->
     <footer class="footer footer-alt">
-        {{new Date().getFullYear()}} &copy; Minton theme by <a href="">Themesbrand</a>
+        {{new Date().getFullYear()}} &copy; کلیه حقوق برای <a href="http://bazarshahr.com"> بازارشهر </a>محفوظ است
     </footer>
 </div>
 </template>
