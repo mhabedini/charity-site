@@ -9,7 +9,7 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'bazarshahr-vendor',
+    title: 'Charity-Site',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -89,16 +89,16 @@ export default {
           type: 'Bearer'
         },
         endpoints: {
-          login: {url: '/auth/login/password', method: 'post', propertyName: 'data.auth_token'},
+          login: {url: '/auth/login', method: 'post', propertyName: 'data.auth_token'},
           logout: {url: '/auth/logout', method: 'post'},
-          user: {url: '/user/profile', method: 'get', propertyName: 'data'}
+          user: {url: '/user', method: 'get', propertyName: 'data'}
         }
       }
     }
   },
 
   axios: {
-    baseURL: 'http://api.bazarshahr.test/v1',
+    baseURL: 'http://api.charity.test/v1',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

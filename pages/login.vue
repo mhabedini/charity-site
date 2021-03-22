@@ -1,5 +1,5 @@
 <script>
-import {mobile, required} from "vuelidate/lib/validators";
+import {email, required} from "vuelidate/lib/validators";
 
 /**
  * Login component
@@ -7,8 +7,8 @@ import {mobile, required} from "vuelidate/lib/validators";
 export default {
   data() {
     return {
-      mobile: "minton@themesbrand.com",
-      password: "123456",
+      email: "admin@admin.com",
+      password: "admin",
       submitted: false,
       authError: null,
       tryingToLogIn: false,
@@ -24,9 +24,9 @@ export default {
     },
   },
   validations: {
-    mobile: {
+    email: {
       required,
-      mobile
+      email
     },
     password: {
       required
@@ -37,7 +37,7 @@ export default {
       try {
         await this.$auth.loginWith('local', {
           data: {
-            mobile: this.mobile,
+            email: this.email,
             password: this.password
           }
         })
@@ -69,7 +69,7 @@ export default {
                             </span>
               </nuxt-link>
             </div>
-            <p class="text-muted mb-4 mt-3">شماره همراه و رمز عبور خود را وارد کنید تا وارد پنل خود شوید</p>
+            <p class="text-muted mb-4 mt-3"> پست الکترونیک و رمز عبور خود را وارد کنید تا وارد پنل خود شوید</p>
           </div>
 
           <form action="#" @submit.prevent="attemptLogin">
@@ -81,12 +81,12 @@ export default {
                      dismissible>{{ authError }}
             </b-alert>
             <div class="form-group mb-3">
-              <label for="mobileaddress">شماره همراه</label>
-              <input class="form-control" v-model="mobile" type="number" id="mobileaddress"
-                     :class="{ 'is-invalid': submitted && $v.mobile.$error }">
-              <div v-if="submitted && $v.mobile.$error" class="invalid-feedback">
-                <span v-if="!$v.mobile.required">شماره همراه لازم است</span>
-                <span v-if="!$v.mobile.mobile">لطفا یک شماره صحیح وارد کنید</span>
+              <label for="emailaddress">پست الکترونیک</label>
+              <input class="form-control" v-model="email" type="email" id="emailaddress"
+                     :class="{ 'is-invalid': submitted && $v.email.$error }">
+              <div v-if="submitted && $v.email.$error" class="invalid-feedback">
+                <span v-if="!$v.email.required">پست الکترونیک صحیح لازم است</span>
+                <span v-if="!$v.email.email">لطفا یک پست الکترونیک صحیح وارد کنید</span>
               </div>
             </div>
 
