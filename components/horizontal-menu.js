@@ -45,13 +45,13 @@ export const menuItems = [
                 subItems: [
                     {
                         id: 10,
-                        label: "menuitems.ecommerce.list.products",
-                        link: "/ecommerce/products"
+                        label: "menuitems.ecommerce.list.users",
+                        link: "/ecommerce/users"
                     },
                     {
                         id: 11,
                         label: "menuitems.ecommerce.list.productsgrid",
-                        link: "/ecommerce/products-grid"
+                        link: "/ecommerce/users-grid"
                     },
                     {
                         id: 12,

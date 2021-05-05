@@ -111,12 +111,10 @@ export default {
     /**
      * Logout user
      */
-    logoutUser() {
-      if (process.env.auth === "firebase") {
-      } else if (process.env.auth === "fakebackend") {
-      }
-      this.$router.push({
-        path: "/account/login",
+    async logoutUser() {
+      await this.$auth.logout()
+      await this.$router.push({
+        path: "/login",
       });
     },
   },
@@ -162,7 +160,8 @@ export default {
             <i class="fe-maximize noti-icon"></i>
           </a>
         </li>
-        <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block topbar-dropdown" toggle-class="nav-link"
+        <b-nav-item-dropdown v-if="false" variant="white" class="d-none d-lg-inline-block topbar-dropdown"
+                             toggle-class="nav-link"
                              right menu-class="dropdown-lg p-0">
           <template v-slot:button-content>
             <i class="fe-grid noti-icon"></i>
@@ -259,7 +258,7 @@ export default {
             <!-- item-->
             <a href="javascript:void(0);" class="dropdown-item notify-item">
               <div class="notify-icon">
-                <img src="~/assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt/>
+                <img src="~/assets/images/users/avatar.png" class="img-fluid rounded-circle" alt/>
               </div>
               <p class="notify-details">{{ $t('navbar.dropdown.notification.2.title') }}</p>
               <p class="text-muted mb-0 user-msg">
@@ -270,7 +269,7 @@ export default {
             <!-- item-->
             <a href="javascript:void(0);" class="dropdown-item notify-item">
               <div class="notify-icon">
-                <img src="~/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt/>
+                <img src="~/assets/images/users/avatar.png" class="img-fluid rounded-circle" alt/>
               </div>
               <p class="notify-details">{{ $t('navbar.dropdown.notification.3.title') }}</p>
               <p class="text-muted mb-0 user-msg">
@@ -322,7 +321,7 @@ export default {
                              toggle-class="p-0">
           <template slot="button-content" class="nav-link dropdown-toggle">
             <div class="nav-user mr-0">
-              <img src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle"/>
+              <img src="~/assets/images/users/avatar.png" alt="user-image" class="rounded-circle"/>
               <span class="pro-user-name ml-1">
                             {{ user.first_name + ' ' + user.last_name }}
                             <i class="mdi mdi-chevron-down"></i>
@@ -330,7 +329,7 @@ export default {
             </div>
           </template>
 
-          <b-dropdown-item href="#">
+          <b-dropdown-item :to="`/users/edit/${this.$auth.user.id}`">
             <i class="remixicon-account-circle-line"></i>
             <span>{{ $t('navbar.dropdown.name.list.account') }}</span>
           </b-dropdown-item>
@@ -341,7 +340,7 @@ export default {
           </b-dropdown-item>
 
           <b-dropdown-divider></b-dropdown-divider>
-          <a class="dropdown-item" @click="logoutUser" href="jvascript: void(0);">
+          <a class="dropdown-item" @click="logoutUser" href="javascript: void(0);">
             <i class="fe-log-out mr-1"></i>
             <span>{{ $t('navbar.dropdown.name.list.logout') }}</span>
           </a>
@@ -401,11 +400,11 @@ export default {
             {{ $t('navbar.dropdown.createnew.text') }}
             <i class="mdi mdi-chevron-down"></i>
           </template>
-          <b-dropdown-item href="#">
+          <b-dropdown-item to="/households/create">
             <i class="fe-briefcase mr-1"></i>
-            <span>{{ $t('navbar.dropdown.createnew.list.projects') }}</span>
+            <span>{{ $t('navbar.dropdown.createnew.list.households') }}</span>
           </b-dropdown-item>
-          <b-dropdown-item href="#">
+          <b-dropdown-item to="/users/create">
             <i class="fe-user mr-1"></i>
             <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span>
           </b-dropdown-item>

@@ -2,7 +2,7 @@ export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
-  loading: "~/components/loading.vue",
+  loading: "~/components/Loading.vue",
   router: {
     middleware: ['auth'],
   },
@@ -47,7 +47,8 @@ export default {
     "~/plugins/quill-editor.js",
     "~/plugins/chartist.js",
     "~/plugins/vue-googlemap.js",
-    "~/plugins/string-filter"
+    "~/plugins/string-filter",
+    "~/plugins/toast"
   ],
 
   i18n: {

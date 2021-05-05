@@ -6,42 +6,42 @@ export default {
     data() {
         return {
             inboxData: [{
-                    image: require('~/assets/images/users/avatar-1.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Chadengle',
                     message: "Hey! there I'm available...",
                 },
                 {
-                    image: require('~/assets/images/users/avatar-2.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Tomaslau',
                     message: "I've finished it! See you so...",
                 },
                 {
-                    image: require('~/assets/images/users/avatar-3.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Stillnotdavid',
                     message: 'This theme is awesome!',
                 },
                 {
-                    image: require('~/assets/images/users/avatar-4.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Kurafire',
                     message: 'Nice to meet you',
                 },
                 {
-                    image: require('~/assets/images/users/avatar-5.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Shahedk',
                     message: "Hey! there I'm available...",
                 },
                 {
-                    image: require('~/assets/images/users/avatar-6.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Adhamdannaway',
                     message: 'This theme is awesome!',
                 },
                 {
-                    image: require('~/assets/images/users/avatar-8.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Arashasghari',
                     message: "Hey! there I'm available...",
                 },
                 {
-                    image: require('~/assets/images/users/avatar-9.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Joshaustin',
                     message: "I've finished it! See you so...",
                 },

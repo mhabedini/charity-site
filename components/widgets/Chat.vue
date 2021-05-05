@@ -15,35 +15,35 @@ export default {
             submitform: false,
             chatData: [{
                     id: 1,
-                    image: require('~/assets/images/users/avatar-1.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'John Deo',
                     message: 'Hello!',
                     time: '10:00',
                 },
                 {
                     id: 2,
-                    image: require('~/assets/images/users/avatar-5.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Smith',
                     message: 'Hi, How are you? What about our next meeting?',
                     time: '10:01',
                 },
                 {
                     id: 3,
-                    image: require('~/assets/images/users/avatar-1.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'John Deo',
                     message: 'Yeah everything is fine',
                     time: '10:01',
                 },
                 {
                     id: 4,
-                    image: require('~/assets/images/users/avatar-5.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'Smith',
                     message: "Wow that's great",
                     time: '10:02',
                 },
                 {
                     id: 5,
-                    image: require('~/assets/images/users/avatar-1.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     name: 'John Deo',
                     message: 'Yup!',
                     time: '10:03',
@@ -76,7 +76,7 @@ export default {
 
                 // Message Push in Chat
                 this.chatData.push({
-                    image: require('~/assets/images/users/avatar-5.jpg'),
+                    image: require('~/assets/images/users/avatar.png'),
                     id: id + 1,
                     name: 'Smith',
                     message,

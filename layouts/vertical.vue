@@ -66,7 +66,7 @@ export default {
                 <Nuxt />
             </div>
         </div>
-        <Footer />
+<!--        <Footer />-->
     </div>
     <Rightbar />
 </div>

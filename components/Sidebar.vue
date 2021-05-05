@@ -245,10 +245,10 @@ export default {
 
         <nuxt-link to="/" class="logo logo-light text-center">
             <span class="logo-sm">
-                <img src="~/assets/images/logo-sm.png" alt height="30" />
+                <img src="~/assets/images/logo-sm.png" alt height="50" />
             </span>
             <span class="logo-lg">
-                <img src="~/assets/images/logo-light.png" alt height="30" />
+                <img src="~/assets/images/logo-light.png" alt height="50" />
             </span>
         </nuxt-link>
     </div>
@@ -256,7 +256,7 @@ export default {
     <simplebar class="h-100" data-simplebar>
         <!-- User box -->
         <div class="user-box text-center">
-            <img src="~/assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md" />
+            <img src="~/assets/images/users/avatar.png" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md" />
             <div class="dropdown">
                 <a href="javascript: void(0);" class="text-reset dropdown-toggle h5 mt-2 mb-1 d-block" data-toggle="dropdown">Nik Patel</a>
                 <div class="dropdown-menu user-pro-dropdown">

@@ -6,37 +6,37 @@ export default {
     data() {
         return {
             leadsData: [{
-                    profile: require("~/assets/images/users/avatar-2.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Risa Pearson",
                     email: "richard.john@mail.com",
                     type: "Cold lead"
                 },
                 {
-                    profile: require("~/assets/images/users/avatar-3.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Margaret D. Evans",
                     email: "margaret.evans@rhyta.com",
                     type: "Lost lead"
                 },
                 {
-                    profile: require("~/assets/images/users/avatar-4.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Bryan J. Luellen",
                     email: "bryuellen@dayrep.com",
                     type: "Won lead"
                 },
                 {
-                    profile: require("~/assets/images/users/avatar-5.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Kathryn S. Collier",
                     email: "collier@jourrapide.com",
                     type: "Cold lead"
                 },
                 {
-                    profile: require("~/assets/images/users/avatar-1.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Timothy Kauper",
                     email: "thykauper@rhyta.com",
                     type: "Cold lead"
                 },
                 {
-                    profile: require("~/assets/images/users/avatar-6.jpg"),
+                    profile: require("~/assets/images/users/avatar.png"),
                     name: "Zara Raws",
                     email: "austin@dayrep.com",
                     type: "Won lead"
