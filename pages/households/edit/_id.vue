@@ -51,6 +51,10 @@
 
               <representative v-model="household.user.representative"/>
 
+              <RepresentativeMobile :submitted="submitted"
+                                    v-model="household.user.representative_mobile"
+                                    :validation="this.$v.household.mobile"/>
+
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
             </div>
@@ -84,6 +88,7 @@ import Email from "@/components/inputs/Email";
 import MaritalStatus from "@/components/inputs/MaritalStatus";
 import Gender from "@/components/inputs/Gender";
 import Representative from "@/components/inputs/Representative";
+import RepresentativeMobile from "@/components/inputs/RepresentativeMobile";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
@@ -107,6 +112,7 @@ export default {
     MaritalStatus,
     Gender,
     Representative,
+    RepresentativeMobile,
     Job,
     IsSadat,
     CharityDepartmentList
@@ -130,6 +136,7 @@ export default {
           job: null,
           citizenship: null,
           representative: null,
+          representative_mobile: null,
         }
       },
       charityDepartment: null,
@@ -187,7 +194,7 @@ export default {
       if (this.$v.$invalid) {
         this.submitted = true
       } else {
-        await this.$axios.post(`/households/${this.$route.params.id}`, {...this.household.user, 'charity_department_id': this.household.charity_department_id})
+        await this.$axios.patch(`/households/${this.$route.params.id}`, {...this.household.user, 'charity_department_id': this.household.charity_department_id})
           .then(value => this.$showSuccessfulToast())
           .catch(reason => {
             this.$showUnsuccessfulToast()

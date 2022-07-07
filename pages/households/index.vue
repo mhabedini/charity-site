@@ -24,7 +24,7 @@ export default {
       fields: [
         {
           key: "id",
-          label: "آی دی"
+          label: "ردیف"
         },
         {
           key: "user.first_name",
@@ -128,7 +128,7 @@ export default {
           <div class="card-body">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <nuxt-link to="/ecommerce/product-create" class="btn btn-danger mb-2"><i
+                <nuxt-link to="/households/create" class="btn btn-danger mb-2"><i
                   class="mdi mdi-plus-circle mr-1"></i>افزودن سرپرست جدید
                 </nuxt-link>
               </div>

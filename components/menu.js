@@ -1,23 +1,5 @@
 export const menuItems = [
   {
-    id: 2,
-    label: "کاربران",
-    icon: "ri-user-line",
-    isMenuCollapsed: false,
-    subItems: [
-      {
-        id: 3,
-        label: "لیست کاربران",
-        link: '/users'
-      },
-      {
-        id: 4,
-        label: "ایجاد کاربر جدید",
-        link: '/users/create'
-      }
-    ]
-  },
-  {
     id: 5,
     label: "مکان ها",
     icon: "ri-map-pin-line",
@@ -80,6 +62,24 @@ export const menuItems = [
         link: '/charity-departments/create'
       }
     ]
-  }
+  },
+  {
+    id: 2,
+    label: "کاربران",
+    icon: "ri-user-line",
+    isMenuCollapsed: false,
+    subItems: [
+      {
+        id: 3,
+        label: "لیست کاربران",
+        link: '/users'
+      },
+      {
+        id: 4,
+        label: "ایجاد کاربر جدید",
+        link: '/users/create'
+      }
+    ]
+  },
 ];
 

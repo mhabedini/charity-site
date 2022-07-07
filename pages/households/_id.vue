@@ -19,6 +19,8 @@
           <b-list-group-item>آیا کاربر سید هست؟ : <span>{{ user.is_sadat ? 'بله' : 'خیر' }}</span></b-list-group-item>
           <b-list-group-item v-if="this.user.representative">معرف : <span>{{ user.representative }}</span>
           </b-list-group-item>
+          <b-list-group-item v-if="this.user.representative_mobile">شماره معرف : <span>{{ user.representative_mobile }}</span>
+          </b-list-group-item>
         </b-list-group>
 
         <b-list-group v-if="this.household.charity_department">
@@ -102,7 +104,7 @@ export default {
       fields: [
         {
           key: "user.id",
-          label: "آی دی"
+          label: "ردیف"
         },
         {
           key: "user.first_name",

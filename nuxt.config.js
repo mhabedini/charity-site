@@ -99,7 +99,7 @@ export default {
   },
 
   axios: {
-    baseURL: 'http://api.charity.test/v1',
+    baseURL: 'http://api.localhost.com/v1',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

@@ -24,7 +24,7 @@ export default {
       fields: [
         {
           key: "id",
-          label: "آی دی"
+          label: "ردیف"
         },
         {
           key: "title",

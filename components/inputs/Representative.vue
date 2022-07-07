@@ -1,11 +1,11 @@
 <template>
   <div class="form-group">
     <label for="representative">
-      معرف کاربر
+      معرف
     </label>
     <input id="representative" :value="value" name="representative" class="form-control"
            type="text"
-           placeholder="معرف کاربر را وارد کنید"
+           placeholder="معرف را وارد کنید"
            @input="$emit('update', $event.target.value)"/>
   </div>
 </template>

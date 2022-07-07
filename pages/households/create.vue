@@ -50,6 +50,10 @@
 
               <representative v-model="household.representative"/>
 
+              <RepresentativeMobile :submitted="submitted"
+                      v-model="household.representative_mobile"
+                      :validation="this.$v.household.mobile"/>
+
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
             </div>
@@ -83,6 +87,7 @@ import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
+import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 
 
 export default {
@@ -92,6 +97,7 @@ export default {
     };
   },
   components: {
+    RepresentativeMobile,
     DatePicker,
     FirstName,
     LastName,
@@ -123,7 +129,8 @@ export default {
         charity_department_id: null,
         citizenship: null,
         is_sadat: false,
-        representative: null
+        representative: null,
+        representative_mobile: null,
       },
       charityDepartments: Array,
       charityDepartment: null,
