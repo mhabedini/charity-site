@@ -15,6 +15,10 @@
                          :submitted="submitted"
                          v-model="household.user.last_name"/>
 
+              <father-name :validation="this.$v.household.user.father_name"
+                           :submitted="submitted"
+                           v-model="household.user.father_name"/>
+
               <national-code :validation="this.$v.household.user.national_code"
                              :submitted="submitted"
                              v-model="household.user.national_code"/>
@@ -53,7 +57,7 @@
 
               <RepresentativeMobile :submitted="submitted"
                                     v-model="household.user.representative_mobile"
-                                    :validation="this.$v.household.mobile"/>
+                                    :validation="this.$v.household.user.representative_mobile"/>
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
@@ -92,6 +96,7 @@ import RepresentativeMobile from "@/components/inputs/RepresentativeMobile";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
+import FatherName from "~/components/inputs/FatherName";
 
 
 export default {
@@ -104,6 +109,7 @@ export default {
     Multiselect,
     DatePicker,
     FirstName,
+    FatherName,
     LastName,
     NationalCode,
     Phone,
@@ -125,6 +131,7 @@ export default {
         user: {
           first_name: null,
           last_name: null,
+          father_name: null,
           email: null,
           phone: null,
           mobile: null,
@@ -153,6 +160,9 @@ export default {
         last_name: {
           required
         },
+        father_name: {
+          required
+        },
         email: {
           email
         },
@@ -162,6 +172,10 @@ export default {
         },
         mobile: {
           required,
+          minLength: minLength(11),
+          maxLength: maxLength(11)
+        },
+        representative_mobile: {
           minLength: minLength(11),
           maxLength: maxLength(11)
         },
@@ -190,6 +204,7 @@ export default {
   },
   methods: {
     async submitHousehold() {
+      console.log(this.household.user)
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitted = true
@@ -204,7 +219,7 @@ export default {
     }
   },
   mounted() {
-    this.household.user.birth_date = this.household.user.birth_date.split('T')[0]
+    this.household.user.birth_date = this.household.user.birth_date ? this.household.user.birth_date.split('T')[0] : null
   },
   watch: {
     charityDepartment: function () {

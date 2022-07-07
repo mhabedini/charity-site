@@ -15,6 +15,10 @@
                          :submitted="submitted"
                          v-model="user.last_name"/>
 
+              <father-name :validation="this.$v.user.father_name"
+                           :submitted="submitted"
+                           v-model="user.father_name"/>
+
               <national-code :validation="this.$v.user.national_code"
                              :submitted="submitted"
                              v-model="user.national_code"/>
@@ -83,6 +87,7 @@ import Multiselect from 'vue-multiselect'
 import DatePicker from 'vue-persian-datetime-picker'
 import FirstName from "@/components/inputs/FirstName";
 import LastName from "@/components/inputs/LastName";
+import FatherName from "@/components/inputs/FatherName";
 import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
 import Mobile from "@/components/inputs/Mobile";
@@ -107,6 +112,7 @@ export default {
     DatePicker,
     FirstName,
     LastName,
+    FatherName,
     NationalCode,
     Phone,
     Mobile,
@@ -125,6 +131,7 @@ export default {
       user: {
         first_name: null,
         last_name: null,
+        father_name: null,
         email: null,
         phone: null,
         mobile: null,
@@ -148,6 +155,9 @@ export default {
         required
       },
       last_name: {
+        required
+      },
+      father_name: {
         required
       },
       email: {
@@ -199,7 +209,7 @@ export default {
     }
   },
   mounted() {
-    this.user.birth_date = this.user.birth_date.split('T')[0]
+    this.user.birth_date = this.user.birth_date ? this.user.birth_date.split('T')[0] : null
   }
 }
 </script>

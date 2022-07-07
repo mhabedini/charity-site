@@ -6,6 +6,7 @@
         <b-list-group>
           <h4 class="mb-3">اطلاعات هویتی</h4>
           <b-list-group-item>نام: <span>{{ user.first_name }}</span></b-list-group-item>
+          <b-list-group-item>نام پدر: <span>{{ user.father_name }}</span></b-list-group-item>
           <b-list-group-item>نام خانوادگی : <span>{{ user.last_name }}</span></b-list-group-item>
           <b-list-group-item>پست الکترونیک : <span>{{ user.email }}</span></b-list-group-item>
           <b-list-group-item>جنسیت : <span>{{ user.gender === 'male' ? 'مرد' : 'زن' }}</span></b-list-group-item>

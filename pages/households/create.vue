@@ -15,6 +15,10 @@
                          :submitted="submitted"
                          v-model="household.last_name"/>
 
+              <father-name :validation="this.$v.household.father_name"
+                           :submitted="submitted"
+                           v-model="household.father_name"/>
+
               <national-code :validation="this.$v.household.national_code"
                              :submitted="submitted"
                              v-model="household.national_code"/>
@@ -52,7 +56,7 @@
 
               <RepresentativeMobile :submitted="submitted"
                       v-model="household.representative_mobile"
-                      :validation="this.$v.household.mobile"/>
+                      :validation="this.$v.household.representative_mobile"/>
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
@@ -76,6 +80,7 @@ import {
 } from 'vuelidate/lib/validators';
 import DatePicker from 'vue-persian-datetime-picker';
 import FirstName from "@/components/inputs/FirstName";
+import FatherName from "@/components/inputs/FatherName";
 import LastName from "@/components/inputs/LastName";
 import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
@@ -101,6 +106,7 @@ export default {
     DatePicker,
     FirstName,
     LastName,
+    FatherName,
     NationalCode,
     Phone,
     Mobile,
@@ -145,6 +151,9 @@ export default {
       last_name: {
         required
       },
+      father_name: {
+        required
+      },
       email: {
         email
       },
@@ -154,6 +163,10 @@ export default {
       },
       mobile: {
         required,
+        minLength: minLength(11),
+        maxLength: maxLength(11)
+      },
+      representative_mobile: {
         minLength: minLength(11),
         maxLength: maxLength(11)
       },

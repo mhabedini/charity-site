@@ -1,9 +1,9 @@
 <template>
   <div class="form-group">
-    <label for="mobile">
+    <label for="representative_mobile">
       شماره تلفن معرف
     </label>
-    <input id="mobile" :value="value" name="mobile" class="form-control"
+    <input id="representative_mobile" :value="value" name="representative_mobile" class="form-control"
            :class="{ 'is-invalid': submitted && this.validation.$error }" type="text" pattern="^0[0-9]*"
            v-mask="'###########'"
            placeholder="شماره تلفن معرف را وارد کنید"
