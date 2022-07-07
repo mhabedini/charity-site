@@ -33,11 +33,8 @@
                      :submitted="submitted"
                      v-model="household.user.email"/>
 
-              <marital-status v-model="household.user.marital_status"/>
-
-              <gender v-model="household.user.gender"/>
-
-              <is-sadat v-model="household.user.is_sadat"/>
+              <description :submitted="submitted"
+                           v-model="household.description"/>
 
             </div>
 
@@ -60,6 +57,12 @@
                                     :validation="this.$v.household.user.representative_mobile"/>
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
+
+              <marital-status v-model="household.user.marital_status"/>
+
+              <gender v-model="household.user.gender"/>
+
+              <is-sadat v-model="household.user.is_sadat"/>
 
             </div>
           </div>
@@ -97,6 +100,7 @@ import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import FatherName from "~/components/inputs/FatherName";
+import Description from "~/components/inputs/Description";
 
 
 export default {
@@ -121,13 +125,15 @@ export default {
     RepresentativeMobile,
     Job,
     IsSadat,
-    CharityDepartmentList
+    CharityDepartmentList,
+    Description,
   },
   data() {
     return {
       title: "ویرایش سرپرست",
       household: {
         charity_department_id: null,
+        description: null,
         user: {
           first_name: null,
           last_name: null,
@@ -204,12 +210,11 @@ export default {
   },
   methods: {
     async submitHousehold() {
-      console.log(this.household.user)
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitted = true
       } else {
-        await this.$axios.patch(`/households/${this.$route.params.id}`, {...this.household.user, 'charity_department_id': this.household.charity_department_id})
+        await this.$axios.patch(`/households/${this.$route.params.id}`, this.household)
           .then(value => this.$showSuccessfulToast())
           .catch(reason => {
             this.$showUnsuccessfulToast()
@@ -219,7 +224,7 @@ export default {
     }
   },
   mounted() {
-    this.household.user.birth_date = this.household.user.birth_date ? this.household.user.birth_date.split('T')[0] : null
+    this.household.user.birth_date = this.household.user.birth_date ? this.household.user.birth_date.split('T')[0] : null;
   },
   watch: {
     charityDepartment: function () {

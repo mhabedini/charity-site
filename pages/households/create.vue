@@ -33,11 +33,8 @@
                      :submitted="submitted"
                      v-model="household.email"/>
 
-              <marital-status v-model="household.marital_status"/>
-
-              <gender v-model="household.gender"/>
-
-              <is-sadat v-model="household.is_sadat"/>
+              <description :submitted="submitted"
+                          v-model="household.description"/>
             </div>
 
             <div class="col-lg-6">
@@ -60,6 +57,12 @@
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
+              <marital-status v-model="household.marital_status"/>
+
+              <gender v-model="household.gender"/>
+
+              <is-sadat v-model="household.is_sadat"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -72,12 +75,7 @@
 </template>
 
 <script>
-import {
-  required,
-  email,
-  minLength,
-  maxLength
-} from 'vuelidate/lib/validators';
+import {email, maxLength, minLength, required} from 'vuelidate/lib/validators';
 import DatePicker from 'vue-persian-datetime-picker';
 import FirstName from "@/components/inputs/FirstName";
 import FatherName from "@/components/inputs/FatherName";
@@ -93,6 +91,7 @@ import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
+import Description from "@/components/inputs/Description";
 
 
 export default {
@@ -102,6 +101,7 @@ export default {
     };
   },
   components: {
+    Description,
     RepresentativeMobile,
     DatePicker,
     FirstName,
@@ -137,6 +137,7 @@ export default {
         is_sadat: false,
         representative: null,
         representative_mobile: null,
+        description: null,
       },
       charityDepartments: Array,
       charityDepartment: null,
