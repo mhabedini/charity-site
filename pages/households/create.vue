@@ -7,61 +7,63 @@
           <div class="row">
             <div class="col-lg-6">
 
-              <first-name :validation="this.$v.household.first_name"
+              <first-name :validation="this.$v.household.user.first_name"
                           :submitted="submitted"
-                          v-model="household.first_name"/>
+                          v-model="household.user.first_name"/>
 
-              <last-name :validation="this.$v.household.last_name"
+              <last-name :validation="this.$v.household.user.last_name"
                          :submitted="submitted"
-                         v-model="household.last_name"/>
+                         v-model="household.user.last_name"/>
 
-              <father-name :validation="this.$v.household.father_name"
+              <father-name :validation="this.$v.household.user.father_name"
                            :submitted="submitted"
-                           v-model="household.father_name"/>
+                           v-model="household.user.father_name"/>
 
-              <national-code :validation="this.$v.household.national_code"
+              <national-code :validation="this.$v.household.user.national_code"
                              :submitted="submitted"
-                             v-model="household.national_code"/>
+                             v-model="household.user.national_code"/>
 
               <div class="form-group">
                 <label>تاریخ تولد</label>
-                <date-picker dir="rtl" v-model="household.birth_date" format="YYYY-MM-DD"
+                <date-picker dir="rtl" v-model="household.user.birth_date" format="YYYY-MM-DD"
                              display-format="jYYYY-jMM-jDD"/>
               </div>
 
-              <email :validation="this.$v.household.email"
+              <email :validation="this.$v.household.user.email"
                      :submitted="submitted"
-                     v-model="household.email"/>
+                     v-model="household.user.email"/>
 
-              <description :submitted="submitted"
-                          v-model="household.description"/>
+              <description v-model="household.description"/>
+
+              <marital-status v-model="household.user.marital_status"/>
+
+              <gender v-model="household.user.gender"/>
+
+              <is-sadat v-model="household.user.is_sadat"/>
+
             </div>
 
             <div class="col-lg-6">
 
               <phone :submitted="submitted"
-                     v-model="household.phone"
-                     :validation="this.$v.household.phone"/>
+                     v-model="household.user.phone"
+                     :validation="this.$v.household.user.phone"/>
 
               <Mobile :submitted="submitted"
-                      v-model="household.mobile"
-                      :validation="this.$v.household.mobile"/>
+                      v-model="household.user.mobile"
+                      :validation="this.$v.household.user.mobile"/>
 
-              <job v-model="household.job"/>
+              <job v-model="household.user.job"/>
 
-              <representative v-model="household.representative"/>
+              <representative v-model="household.user.representative"/>
 
               <RepresentativeMobile :submitted="submitted"
-                      v-model="household.representative_mobile"
-                      :validation="this.$v.household.representative_mobile"/>
+                                    v-model="household.user.representative_mobile"
+                                    :validation="this.$v.household.user.representative_mobile"/>
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
-              <marital-status v-model="household.marital_status"/>
-
-              <gender v-model="household.gender"/>
-
-              <is-sadat v-model="household.is_sadat"/>
+              <religion v-model="religion" :religions="religions"/>
 
             </div>
           </div>
@@ -92,6 +94,7 @@ import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 import Description from "@/components/inputs/Description";
+import Religion from "@/components/inputs/Religion";
 
 
 export default {
@@ -104,6 +107,7 @@ export default {
     Description,
     RepresentativeMobile,
     DatePicker,
+    Religion,
     FirstName,
     LastName,
     FatherName,
@@ -122,64 +126,72 @@ export default {
     return {
       title: "ایجاد سرپرست جدید",
       household: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        phone: null,
-        mobile: null,
-        gender: 'male',
-        birth_date: null,
-        national_code: null,
-        marital_status: false,
-        job: null,
+        user: {
+          first_name: null,
+          last_name: null,
+          email: null,
+          phone: null,
+          mobile: null,
+          gender: 'male',
+          birth_date: null,
+          national_code: null,
+          marital_status: false,
+          job: null,
+          citizenship: null,
+          is_sadat: false,
+          religion: null,
+          representative: null,
+          representative_mobile: null,
+        },
         charity_department_id: null,
-        citizenship: null,
-        is_sadat: false,
-        representative: null,
-        representative_mobile: null,
         description: null,
       },
       charityDepartments: Array,
       charityDepartment: null,
+      religion: null,
+      religions: Array,
       submitted: false,
     }
   },
   validations: {
     household: {
-      first_name: {
-        required
-      },
-      last_name: {
-        required
-      },
-      father_name: {
-        required
-      },
-      email: {
-        email
-      },
-      phone: {
-        minLength: minLength(9),
-        maxLength: maxLength(12)
-      },
-      mobile: {
-        required,
-        minLength: minLength(11),
-        maxLength: maxLength(11)
-      },
-      representative_mobile: {
-        minLength: minLength(11),
-        maxLength: maxLength(11)
-      },
-      national_code: {
-        required,
-        minLength: minLength(10),
-        maxLength: maxLength(10)
+      user: {
+        first_name: {
+          required
+        },
+        last_name: {
+          required
+        },
+        father_name: {
+          required
+        },
+        email: {
+          email
+        },
+        phone: {
+          minLength: minLength(9),
+          maxLength: maxLength(12)
+        },
+        mobile: {
+          required,
+          minLength: minLength(11),
+          maxLength: maxLength(11)
+        },
+        representative_mobile: {
+          minLength: minLength(11),
+          maxLength: maxLength(11)
+        },
+        national_code: {
+          required,
+          minLength: minLength(10),
+          maxLength: maxLength(10)
+        }
       }
     }
   },
   async asyncData({$axios}) {
     let charityDepartments = await $axios.get('/charity-departments')
+    let religions = await $axios.get('/religions')
     charityDepartments = charityDepartments.data.data.map(function (department) {
       return {
         'value': department.id,
@@ -187,6 +199,7 @@ export default {
       };
     });
     return {
+      religions: religions.data.data,
       charityDepartments: charityDepartments
     }
   },
@@ -209,6 +222,9 @@ export default {
   watch: {
     charityDepartment: function () {
       this.household.charity_department_id = this.charityDepartment.value
+    },
+    religion: function () {
+      this.household.user.religion = this.religion.value
     }
   }
 }

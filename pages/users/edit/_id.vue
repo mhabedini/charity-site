@@ -54,6 +54,8 @@
 
               <representative v-model="user.representative"/>
 
+              <religion v-model="religion" :religions="religions"/>
+
               <password :submitted="submitted"
                         v-model="user.password"
                         :validation="this.$v.user.password"/>
@@ -99,6 +101,7 @@ import ConfirmPassword from "@/components/inputs/ConfirmPassword";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
+import Religion from "@/components/inputs/Religion";
 
 
 export default {
@@ -114,6 +117,7 @@ export default {
     LastName,
     FatherName,
     NationalCode,
+    Religion,
     Phone,
     Mobile,
     Email,
@@ -141,11 +145,14 @@ export default {
         national_code: null,
         marital_status: null,
         job: null,
+        religion: null,
         citizenship: null,
         representative: null,
         password: null,
         confirmPassword: null,
       },
+      religion: null,
+      religions: Array,
       submitted: false,
     }
   },
@@ -188,9 +195,11 @@ export default {
   },
   async asyncData({$axios, params}) {
     const user = await $axios.get(`/users/${params.id}`)
-    console.log(user.data.data.is_sadat)
+    let religions = await $axios.get('/religions');
     return {
-      user: user.data.data
+      user: user.data.data,
+      religions: religions.data.data,
+      religion: religions.data.data.find(religion => religion.value === user.data.data.religion),
     }
   },
   methods: {
@@ -206,6 +215,11 @@ export default {
             console.log(reason.response.data)
           })
       }
+    }
+  },
+  watch: {
+    religion: function () {
+      this.user.religion = this.religion.value
     }
   },
   mounted() {

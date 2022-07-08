@@ -33,8 +33,13 @@
                      :submitted="submitted"
                      v-model="household.user.email"/>
 
-              <description :submitted="submitted"
-                           v-model="household.description"/>
+              <description v-model="household.description"/>
+
+              <marital-status v-model="household.user.marital_status"/>
+
+              <gender v-model="household.user.gender"/>
+
+              <is-sadat v-model="household.user.is_sadat"/>
 
             </div>
 
@@ -58,11 +63,9 @@
 
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
-              <marital-status v-model="household.user.marital_status"/>
+              <religion v-model="religion" :religions="religions"/>
 
-              <gender v-model="household.user.gender"/>
-
-              <is-sadat v-model="household.user.is_sadat"/>
+              <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
             </div>
           </div>
@@ -78,12 +81,7 @@
 </template>
 
 <script>
-import {
-  required,
-  email,
-  minLength,
-  maxLength
-} from 'vuelidate/lib/validators'
+import {email, maxLength, minLength, required} from 'vuelidate/lib/validators'
 import Multiselect from 'vue-multiselect'
 import DatePicker from 'vue-persian-datetime-picker'
 import FirstName from "@/components/inputs/FirstName";
@@ -101,6 +99,7 @@ import IsSadat from "@/components/inputs/IsSadat";
 import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import FatherName from "~/components/inputs/FatherName";
 import Description from "~/components/inputs/Description";
+import Religion from "@/components/inputs/Religion";
 
 
 export default {
@@ -111,6 +110,7 @@ export default {
   },
   components: {
     Multiselect,
+    Religion,
     DatePicker,
     FirstName,
     FatherName,
@@ -147,12 +147,15 @@ export default {
           national_code: null,
           marital_status: null,
           job: null,
+          religion: null,
           citizenship: null,
           representative: null,
           representative_mobile: null,
         }
       },
       charityDepartment: null,
+      religion: null,
+      religions: Array,
       charityDepartments: Array,
       submitted: false,
     }
@@ -196,6 +199,7 @@ export default {
   async asyncData({$axios, params}) {
     const household = await $axios.get(`/households/${params.id}`)
     let charityDepartments = await $axios.get('/charity-departments')
+    let religions = await $axios.get('/religions')
     charityDepartments = charityDepartments.data.data.map(function (department) {
       return {
         'value': department.id,
@@ -203,6 +207,8 @@ export default {
       };
     });
     return {
+      religions: religions.data.data,
+      religion: religions.data.data.find(religion => religion.value === household.data.data.user.religion),
       charityDepartments: charityDepartments,
       charityDepartment: charityDepartments.find(charityDepartment => charityDepartment.value === household.data.data.charity_department_id),
       household: household.data.data
@@ -229,6 +235,9 @@ export default {
   watch: {
     charityDepartment: function () {
       this.household.charity_department_id = this.charityDepartment.value
+    },
+    religion: function () {
+      this.household.user.religion = this.religion.value
     }
   }
 }

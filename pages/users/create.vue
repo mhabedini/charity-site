@@ -53,6 +53,8 @@
 
               <representative v-model="user.representative"/>
 
+              <religion v-model="religion" :religions="religions"/>
+
               <password :submitted="submitted"
                         v-model="user.password"
                         :validation="this.$v.user.password"/>
@@ -90,7 +92,7 @@ import ConfirmPassword from "@/components/inputs/ConfirmPassword";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
-
+import Religion from "@/components/inputs/Religion";
 
 export default {
   head() {
@@ -109,6 +111,7 @@ export default {
     Email,
     MaritalStatus,
     Gender,
+    Religion,
     Password,
     ConfirmPassword,
     Representative,
@@ -133,11 +136,14 @@ export default {
         job: null,
         citizenship: null,
         is_sadat: false,
+        religion: null,
         representative: null,
         password: null,
         confirmPassword: null,
       },
       gender: '',
+      religion: null,
+      religions: Array,
       submitted: false,
     }
   },
@@ -180,8 +186,13 @@ export default {
       }
     }
   },
+  async asyncData({$axios}) {
+    let religions = await $axios.get('/religions');
+    return {
+      religions: religions.data.data,
+    }
+  },
   methods: {
-
     async submitUser() {
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -191,6 +202,11 @@ export default {
           .then(value => this.$showSuccessfulToast())
           .catch(reason => this.$showUnsuccessfulToast())
       }
+    },
+  },
+  watch: {
+    religion: function () {
+      this.user.religion = this.religion.value
     }
   }
 }
