@@ -1,17 +1,28 @@
 <template>
-  <b-form-group class="mb-3">
-    <label>وضعیت تأهل</label>
-    <b-form-radio-group id="marital-status" name="marital_status"
-                        v-model="mutableMaritalStatus">
-      <b-form-radio :value="false">مجرد</b-form-radio>
-      <b-form-radio :value="true">متأهل</b-form-radio>
-    </b-form-radio-group>
-  </b-form-group>
+  <div dir="rtl" class="form-group">
+    <label>
+      وضعیت تأهل
+      <span class="text-danger">*</span>
+    </label>
+    <multiselect placeholder="انتخاب کنید"
+                 selectedLabel="انتخاب شده"
+                 selectLabel="لطفا انتخاب کنید"
+                 deselectLabel="لطفا برای عدم انتخاب کلیک کنید"
+                 v-model="mutableMaritalStatus"
+                 :options="maritalStatuses"
+                 label="label"
+                 track-by="value"/>
+  </div>
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+
 export default {
-  props: ['maritalStatus'],
+  components: {
+    Multiselect
+  },
+  props: ['maritalStatus', 'maritalStatuses'],
   model: {
     prop: 'maritalStatus',
     event: 'change'

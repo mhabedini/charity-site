@@ -32,7 +32,7 @@
                      :submitted="submitted"
                      v-model="user.email"/>
 
-              <marital-status v-model="user.marital_status"/>
+              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
 
               <gender v-model="user.gender"/>
 
@@ -153,6 +153,8 @@ export default {
       },
       religion: null,
       religions: Array,
+      maritalStatus: null,
+      maritalStatuses: Array,
       submitted: false,
     }
   },
@@ -196,10 +198,13 @@ export default {
   async asyncData({$axios, params}) {
     const user = await $axios.get(`/users/${params.id}`)
     let religions = await $axios.get('/religions');
+    let maritalStatuses = await $axios.get('/marital-statuses');
     return {
       user: user.data.data,
-      religions: religions.data.data,
       religion: religions.data.data.find(religion => religion.value === user.data.data.religion),
+      religions: religions.data.data,
+      maritalStatus: maritalStatuses.data.data.find(maritalStatus => maritalStatus.value === user.data.data.marital_status),
+      maritalStatuses: maritalStatuses.data.data,
     }
   },
   methods: {
@@ -208,7 +213,7 @@ export default {
       if (this.$v.$invalid) {
         this.submitted = true
       } else {
-        await this.$axios.post(`/users/${this.$route.params.id}`, this.user)
+        await this.$axios.patch(`/users/${this.$route.params.id}`, this.user)
           .then(value => this.$showSuccessfulToast())
           .catch(reason => {
             this.$showUnsuccessfulToast()
@@ -220,6 +225,9 @@ export default {
   watch: {
     religion: function () {
       this.user.religion = this.religion.value
+    },
+    maritalStatus: function () {
+      this.user.marital_status = this.maritalStatus.value
     }
   },
   mounted() {

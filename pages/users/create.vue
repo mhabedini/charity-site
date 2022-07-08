@@ -32,7 +32,7 @@
                      :submitted="submitted"
                      v-model="user.email"/>
 
-              <marital-status v-model="user.marital_status"/>
+              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
 
               <gender v-model="user.gender"/>
 
@@ -144,6 +144,8 @@ export default {
       gender: '',
       religion: null,
       religions: Array,
+      maritalStatus: null,
+      maritalStatuses: Array,
       submitted: false,
     }
   },
@@ -188,8 +190,10 @@ export default {
   },
   async asyncData({$axios}) {
     let religions = await $axios.get('/religions');
+    let maritalStatuses = await $axios.get('/marital-statuses');
     return {
       religions: religions.data.data,
+      maritalStatuses: maritalStatuses.data.data,
     }
   },
   methods: {
@@ -207,6 +211,9 @@ export default {
   watch: {
     religion: function () {
       this.user.religion = this.religion.value
+    },
+    maritalStatus: function () {
+      this.user.marital_status = this.maritalStatus.value
     }
   }
 }

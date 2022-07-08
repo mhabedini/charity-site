@@ -35,7 +35,7 @@
 
               <description v-model="household.description"/>
 
-              <marital-status v-model="household.user.marital_status"/>
+              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
 
               <gender v-model="household.user.gender"/>
 
@@ -150,6 +150,8 @@ export default {
       charityDepartment: null,
       religion: null,
       religions: Array,
+      maritalStatus: null,
+      maritalStatuses: Array,
       submitted: false,
     }
   },
@@ -192,6 +194,8 @@ export default {
   async asyncData({$axios}) {
     let charityDepartments = await $axios.get('/charity-departments')
     let religions = await $axios.get('/religions')
+    let maritalStatuses = await $axios.get('/marital-statuses');
+
     charityDepartments = charityDepartments.data.data.map(function (department) {
       return {
         'value': department.id,
@@ -200,7 +204,8 @@ export default {
     });
     return {
       religions: religions.data.data,
-      charityDepartments: charityDepartments
+      charityDepartments: charityDepartments,
+      maritalStatuses: maritalStatuses.data.data,
     }
   },
   methods: {
@@ -225,6 +230,9 @@ export default {
     },
     religion: function () {
       this.household.user.religion = this.religion.value
+    },
+    maritalStatus: function () {
+      this.household.user.marital_status = this.maritalStatus.value
     }
   }
 }
