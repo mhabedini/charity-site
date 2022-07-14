@@ -69,6 +69,8 @@
 
               <housing-situation v-model="housingSituation" :housing-situations="housingSituations"/>
 
+              <supervisor-status v-model="supervisorStatus" :supervisor-statuses="supervisorStatuses"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -102,6 +104,8 @@ import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
 import HousingSituation from "~/components/inputs/HousingSituation";
 import {housingSituations} from "~/components/housing-situatuations";
+import {supervisorStatuses} from "~/components/supervisor-statuses";
+import SupervisorStatus from "~/components/inputs/SupervisorStatus";
 
 
 export default {
@@ -129,6 +133,7 @@ export default {
     Job,
     IsSadat,
     CharityDepartmentList,
+    SupervisorStatus,
     Citizenship
   },
   data() {
@@ -154,6 +159,7 @@ export default {
         },
         charity_department_id: null,
         housing_situation: null,
+        supervisor_status: null,
         description: null,
       },
       charityDepartments: Array,
@@ -164,6 +170,8 @@ export default {
       countries: Array,
       housingSituation: null,
       housingSituations: Array,
+      supervisorStatus: null,
+      supervisorStatuses: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -220,6 +228,7 @@ export default {
     return {
       housingSituations: housingSituations,
       religions: religions.data.data,
+      supervisorStatuses: supervisorStatuses,
       countries: countries.data.data,
       charityDepartments: charityDepartments,
       maritalStatuses: maritalStatuses.data.data,
@@ -250,6 +259,9 @@ export default {
     },
     nationality: function () {
       this.household.user.citizenship = this.nationality.id
+    },
+    supervisorStatus: function () {
+      this.household.supervisor_status = this.supervisorStatus.value
     },
     housingSituation: function () {
       this.household.housing_situation = this.housingSituation.value

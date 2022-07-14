@@ -69,6 +69,8 @@
 
               <housing-situation v-model="housingSituation" :housing-situations="housingSituations"/>
 
+              <supervisor-status v-model="supervisorStatus" :supervisor-statuses="supervisorStatuses"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -105,6 +107,8 @@ import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
 import {housingSituations} from "~/components/housing-situatuations";
 import HousingSituation from "~/components/inputs/HousingSituation";
+import {supervisorStatuses} from "~/components/supervisor-statuses";
+import SupervisorStatus from "~/components/inputs/SupervisorStatus";
 
 
 export default {
@@ -114,6 +118,7 @@ export default {
     };
   },
   components: {
+    SupervisorStatus,
     HousingSituation,
     Multiselect,
     Citizenship,
@@ -139,6 +144,7 @@ export default {
     return {
       title: "ویرایش سرپرست",
       household: {
+        supervisor_status: null,
         charity_department_id: null,
         description: null,
         housing_situation: null,
@@ -169,6 +175,8 @@ export default {
       charityDepartments: Array,
       housingSituation: null,
       housingSituations: Array,
+      supervisorStatus: null,
+      supervisorStatuses: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -226,6 +234,8 @@ export default {
       religions: religions.data.data,
       housingSituations: housingSituations,
       housingSituation: housingSituations.find(housingSituation => housingSituation.value === household.data.data.housing_situation),
+      supervisorStatuses: supervisorStatuses,
+      supervisorStatus: supervisorStatuses.find(supervisorStatus => supervisorStatus.value === household.data.data.supervisor_status),
       religion: religions.data.data.find(religion => religion.value === household.data.data.user.religion),
       nationality: countries.data.data.find(nationality => nationality.id === household.data.data.user.citizenship),
       countries: countries.data.data,
@@ -263,6 +273,9 @@ export default {
     },
     housingSituation: function () {
       this.household.housing_situation = this.housingSituation.value
+    },
+    supervisorStatus: function () {
+      this.household.supervisor_status = this.supervisorStatus.value
     },
     religion: function () {
       this.household.user.religion = this.religion.value
