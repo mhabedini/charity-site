@@ -23,6 +23,8 @@
                              :submitted="submitted"
                              v-model="household.user.national_code"/>
 
+              <citizenship v-model="nationality" :countries="countries"/>
+
               <div class="form-group">
                 <label>تاریخ تولد</label>
                 <date-picker dir="rtl" v-model="household.user.birth_date" format="YYYY-MM-DD"
@@ -95,6 +97,7 @@ import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 import Description from "@/components/inputs/Description";
 import Religion from "@/components/inputs/Religion";
+import Citizenship from "~/components/inputs/Citizenship";
 
 
 export default {
@@ -120,7 +123,8 @@ export default {
     Representative,
     Job,
     IsSadat,
-    CharityDepartmentList
+    CharityDepartmentList,
+    Citizenship
   },
   data() {
     return {
@@ -150,10 +154,12 @@ export default {
       charityDepartment: null,
       religion: null,
       religions: Array,
+      nationality: null,
+      countries: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
-    }
+    };
   },
   validations: {
     household: {
@@ -194,6 +200,7 @@ export default {
   async asyncData({$axios}) {
     let charityDepartments = await $axios.get('/charity-departments')
     let religions = await $axios.get('/religions')
+    let countries = await $axios.get('/countries');
     let maritalStatuses = await $axios.get('/marital-statuses');
 
     charityDepartments = charityDepartments.data.data.map(function (department) {
@@ -204,6 +211,7 @@ export default {
     });
     return {
       religions: religions.data.data,
+      countries: countries.data.data,
       charityDepartments: charityDepartments,
       maritalStatuses: maritalStatuses.data.data,
     }
@@ -230,6 +238,9 @@ export default {
     },
     religion: function () {
       this.household.user.religion = this.religion.value
+    },
+    nationality: function () {
+      this.household.user.citizenship = this.nationality.id
     },
     maritalStatus: function () {
       this.household.user.marital_status = this.maritalStatus.value

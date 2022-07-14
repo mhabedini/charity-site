@@ -23,6 +23,8 @@
                              :submitted="submitted"
                              v-model="user.national_code"/>
 
+              <citizenship v-model="nationality" :countries="countries"/>
+
               <div class="form-group">
                 <label>تاریخ تولد</label>
                 <date-picker dir="rtl" v-model="user.birth_date" format="YYYY-MM-DD" display-format="jYYYY-jMM-jDD"/>
@@ -78,13 +80,7 @@
 </template>
 
 <script>
-import {
-  required,
-  email,
-  minLength,
-  sameAs,
-  maxLength
-} from 'vuelidate/lib/validators'
+import {email, maxLength, minLength, required, sameAs} from 'vuelidate/lib/validators'
 import Multiselect from 'vue-multiselect'
 import DatePicker from 'vue-persian-datetime-picker'
 import FirstName from "@/components/inputs/FirstName";
@@ -102,6 +98,7 @@ import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import Religion from "@/components/inputs/Religion";
+import Citizenship from "~/components/inputs/Citizenship";
 
 
 export default {
@@ -111,6 +108,7 @@ export default {
     };
   },
   components: {
+    Citizenship,
     Multiselect,
     DatePicker,
     FirstName,
@@ -152,6 +150,8 @@ export default {
         confirmPassword: null,
       },
       religion: null,
+      nationality: null,
+      countries: Array,
       religions: Array,
       maritalStatus: null,
       maritalStatuses: Array,
@@ -198,9 +198,12 @@ export default {
   async asyncData({$axios, params}) {
     const user = await $axios.get(`/users/${params.id}`)
     let religions = await $axios.get('/religions');
+    let countries = await $axios.get('/countries');
     let maritalStatuses = await $axios.get('/marital-statuses');
     return {
       user: user.data.data,
+      nationality: countries.data.data.find(nationality => nationality.id === user.data.data.citizenship),
+      countries: countries.data.data,
       religion: religions.data.data.find(religion => religion.value === user.data.data.religion),
       religions: religions.data.data,
       maritalStatus: maritalStatuses.data.data.find(maritalStatus => maritalStatus.value === user.data.data.marital_status),
@@ -225,6 +228,9 @@ export default {
   watch: {
     religion: function () {
       this.user.religion = this.religion.value
+    },
+    nationality: function () {
+      this.user.citizenship = this.nationality.id
     },
     maritalStatus: function () {
       this.user.marital_status = this.maritalStatus.value

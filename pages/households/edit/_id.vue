@@ -23,6 +23,8 @@
                              :submitted="submitted"
                              v-model="household.user.national_code"/>
 
+              <citizenship v-model="nationality" :countries="countries"/>
+
               <div class="form-group">
                 <label>تاریخ تولد</label>
                 <date-picker dir="rtl" v-model="household.user.birth_date" format="YYYY-MM-DD"
@@ -64,9 +66,6 @@
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
               <religion v-model="religion" :religions="religions"/>
-
-              <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
-
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -100,6 +99,7 @@ import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import FatherName from "~/components/inputs/FatherName";
 import Description from "~/components/inputs/Description";
 import Religion from "@/components/inputs/Religion";
+import Citizenship from "~/components/inputs/Citizenship";
 
 
 export default {
@@ -110,6 +110,7 @@ export default {
   },
   components: {
     Multiselect,
+    Citizenship,
     Religion,
     DatePicker,
     FirstName,
@@ -156,6 +157,8 @@ export default {
       charityDepartment: null,
       religion: null,
       religions: Array,
+      nationality: null,
+      countries: Array,
       charityDepartments: Array,
       maritalStatus: null,
       maritalStatuses: Array,
@@ -201,6 +204,7 @@ export default {
   async asyncData({$axios, params}) {
     const household = await $axios.get(`/households/${params.id}`)
     let charityDepartments = await $axios.get('/charity-departments')
+    let countries = await $axios.get('/countries');
     let religions = await $axios.get('/religions')
     let maritalStatuses = await $axios.get('/marital-statuses');
     charityDepartments = charityDepartments.data.data.map(function (department) {
@@ -212,6 +216,8 @@ export default {
     return {
       religions: religions.data.data,
       religion: religions.data.data.find(religion => religion.value === household.data.data.user.religion),
+      nationality: countries.data.data.find(nationality => nationality.id === household.data.data.user.citizenship),
+      countries: countries.data.data,
       charityDepartments: charityDepartments,
       charityDepartment: charityDepartments.find(charityDepartment => charityDepartment.value === household.data.data.charity_department_id),
       household: household.data.data,
@@ -240,6 +246,9 @@ export default {
   watch: {
     charityDepartment: function () {
       this.household.charity_department_id = this.charityDepartment.value
+    },
+    nationality: function () {
+      this.household.user.citizenship = this.nationality.id
     },
     religion: function () {
       this.household.user.religion = this.religion.value

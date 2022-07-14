@@ -23,6 +23,8 @@
                              :submitted="submitted"
                              v-model="user.national_code"/>
 
+              <citizenship v-model="nationality" :countries="countries"/>
+
               <div class="form-group">
                 <label>تاریخ تولد</label>
                 <date-picker dir="rtl" v-model="user.birth_date" format="YYYY-MM-DD" display-format="jYYYY-jMM-jDD"/>
@@ -93,6 +95,7 @@ import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import Religion from "@/components/inputs/Religion";
+import Citizenship from "~/components/inputs/Citizenship";
 
 export default {
   head() {
@@ -117,7 +120,8 @@ export default {
     Representative,
     Job,
     Switches,
-    IsSadat
+    IsSadat,
+    Citizenship
   },
   data() {
     return {
@@ -144,6 +148,8 @@ export default {
       gender: '',
       religion: null,
       religions: Array,
+      nationality: null,
+      countries: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -190,8 +196,10 @@ export default {
   },
   async asyncData({$axios}) {
     let religions = await $axios.get('/religions');
+    let countries = await $axios.get('/countries');
     let maritalStatuses = await $axios.get('/marital-statuses');
     return {
+      countries: countries.data.data,
       religions: religions.data.data,
       maritalStatuses: maritalStatuses.data.data,
     }
@@ -211,6 +219,9 @@ export default {
   watch: {
     religion: function () {
       this.user.religion = this.religion.value
+    },
+    nationality: function () {
+      this.user.citizenship = this.nationality.id
     },
     maritalStatus: function () {
       this.user.marital_status = this.maritalStatus.value
