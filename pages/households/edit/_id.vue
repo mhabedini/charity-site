@@ -66,6 +66,9 @@
               <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
 
               <religion v-model="religion" :religions="religions"/>
+
+              <housing-situation v-model="housingSituation" :housing-situations="housingSituations"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -100,6 +103,8 @@ import FatherName from "~/components/inputs/FatherName";
 import Description from "~/components/inputs/Description";
 import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
+import {housingSituations} from "~/components/housing-situatuations";
+import HousingSituation from "~/components/inputs/HousingSituation";
 
 
 export default {
@@ -109,6 +114,7 @@ export default {
     };
   },
   components: {
+    HousingSituation,
     Multiselect,
     Citizenship,
     Religion,
@@ -135,6 +141,7 @@ export default {
       household: {
         charity_department_id: null,
         description: null,
+        housing_situation: null,
         user: {
           first_name: null,
           last_name: null,
@@ -160,6 +167,8 @@ export default {
       nationality: null,
       countries: Array,
       charityDepartments: Array,
+      housingSituation: null,
+      housingSituations: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -215,6 +224,8 @@ export default {
     });
     return {
       religions: religions.data.data,
+      housingSituations: housingSituations,
+      housingSituation: housingSituations.find(housingSituation => housingSituation.value === household.data.data.housing_situation),
       religion: religions.data.data.find(religion => religion.value === household.data.data.user.religion),
       nationality: countries.data.data.find(nationality => nationality.id === household.data.data.user.citizenship),
       countries: countries.data.data,
@@ -249,6 +260,9 @@ export default {
     },
     nationality: function () {
       this.household.user.citizenship = this.nationality.id
+    },
+    housingSituation: function () {
+      this.household.housing_situation = this.housingSituation.value
     },
     religion: function () {
       this.household.user.religion = this.religion.value

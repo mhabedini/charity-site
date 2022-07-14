@@ -67,6 +67,8 @@
 
               <religion v-model="religion" :religions="religions"/>
 
+              <housing-situation v-model="housingSituation" :housing-situations="housingSituations"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -98,6 +100,8 @@ import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 import Description from "@/components/inputs/Description";
 import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
+import HousingSituation from "~/components/inputs/HousingSituation";
+import {housingSituations} from "~/components/housing-situatuations";
 
 
 export default {
@@ -110,6 +114,7 @@ export default {
     Description,
     RepresentativeMobile,
     DatePicker,
+    HousingSituation,
     Religion,
     FirstName,
     LastName,
@@ -148,6 +153,7 @@ export default {
           representative_mobile: null,
         },
         charity_department_id: null,
+        housing_situation: null,
         description: null,
       },
       charityDepartments: Array,
@@ -156,6 +162,8 @@ export default {
       religions: Array,
       nationality: null,
       countries: Array,
+      housingSituation: null,
+      housingSituations: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -210,6 +218,7 @@ export default {
       };
     });
     return {
+      housingSituations: housingSituations,
       religions: religions.data.data,
       countries: countries.data.data,
       charityDepartments: charityDepartments,
@@ -241,6 +250,9 @@ export default {
     },
     nationality: function () {
       this.household.user.citizenship = this.nationality.id
+    },
+    housingSituation: function () {
+      this.household.housing_situation = this.housingSituation.value
     },
     maritalStatus: function () {
       this.household.user.marital_status = this.maritalStatus.value
