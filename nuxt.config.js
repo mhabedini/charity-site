@@ -4,7 +4,7 @@ export default {
 
   loading: "~/components/Loading.vue",
   router: {
-    middleware: ['auth'],
+    middleware: ['auth']
   },
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -99,7 +99,7 @@ export default {
   },
 
   axios: {
-    baseURL: 'http://api.localhost.com/v1',
+    baseURL: 'http://api.localhost/v1'
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -113,6 +113,6 @@ export default {
     storgebucket: process.env.VUE_APP_STORAGEBUCKET,
     message: process.env.VUE_APP_MESSAGINGSENDERID,
     appid: process.env.VUE_APP_APPId,
-    measurement: process.env.VUE_APP_MEASUREMENTID,
+    measurement: process.env.VUE_APP_MEASUREMENTID
   }
 }

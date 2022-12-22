@@ -44,7 +44,7 @@
         </div>
         <div class="card">
           <span class="table-responsive mb-0">
-              <b-table table-class="table table-centered w-100" @sort-changed="sortChanged" thead-tr-class="bg-light"
+              <b-table table-class="table table-centered w-100" thead-tr-class="bg-light"
                        :items="this.families"
                        :fields="fields" responsive="sm" :per-page="perPage"
                        :sort-by.sync="sortBy" :sort-desc.sync="sortDesc">
@@ -156,7 +156,7 @@ export default {
     }
   },
   mounted() {
-    this.user.birth_date = this.user.birth_date.split('T')[0]
+    this.user.birth_date = this.user.birth_date ? this.user.birth_date.split('T')[0] :  null
   }
 }
 </script>

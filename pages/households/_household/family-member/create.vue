@@ -15,9 +15,15 @@
                          :submitted="submitted"
                          v-model="familyMember.last_name"/>
 
+              <father-name :validation="this.$v.familyMember.father_name"
+                           :submitted="submitted"
+                           v-model="familyMember.father_name"/>
+
               <national-code :validation="this.$v.familyMember.national_code"
                              :submitted="submitted"
                              v-model="familyMember.national_code"/>
+
+              <citizenship v-model="nationality" :countries="countries"/>
 
               <div class="form-group">
                 <label>تاریخ تولد</label>
@@ -29,7 +35,7 @@
                      :submitted="submitted"
                      v-model="familyMember.email"/>
 
-              <marital-status v-model="familyMember.marital_status"/>
+              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
 
               <gender v-model="familyMember.gender"/>
 
@@ -49,6 +55,13 @@
               <job v-model="familyMember.job"/>
 
               <representative v-model="familyMember.representative"/>
+
+              <RepresentativeMobile :submitted="submitted"
+                                    v-model="familyMember.representative_mobile"
+                                    :validation="this.$v.familyMember.representative_mobile"/>
+
+              <religion v-model="religion" :religions="religions"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -71,6 +84,9 @@ import Switches from 'vue-switches';
 import DatePicker from 'vue-persian-datetime-picker';
 import FirstName from "@/components/inputs/FirstName";
 import LastName from "@/components/inputs/LastName";
+import FatherName from "@/components/inputs/FatherName";
+import Citizenship from "@/components/inputs/Citizenship";
+import Religion from "@/components/inputs/Religion";
 import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
 import Mobile from "@/components/inputs/Mobile";
@@ -80,6 +96,7 @@ import Gender from "@/components/inputs/Gender";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
+import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 
 
 export default {
@@ -92,6 +109,9 @@ export default {
     DatePicker,
     FirstName,
     LastName,
+    FatherName,
+    Citizenship,
+    Religion,
     NationalCode,
     Phone,
     Mobile,
@@ -99,6 +119,7 @@ export default {
     MaritalStatus,
     Gender,
     Representative,
+    RepresentativeMobile,
     Job,
     Switches,
     IsSadat
@@ -107,23 +128,32 @@ export default {
     return {
       title: "ایجاد عضو خانواده جدید",
       familyMember: {
-        first_name: 'محمد علی',
-        last_name: 'عابدینی',
+        first_name: '',
+        last_name: '',
+        father_name: '',
         email: null,
         phone: null,
         mobile: null,
         gender: 'male',
         birth_date: null,
-        national_code: '0371111111',
+        national_code: '',
         marital_status: false,
         job: null,
         citizenship: null,
+        religion: null,
         is_sadat: false,
         representative: null,
+        representative_mobile: null,
         household_id: null
       },
       gender: '',
       submitted: false,
+      maritalStatuses: Array,
+      maritalStatus: null,
+      countries: Array,
+      religion: null,
+      nationality: null,
+      religions: Array,
     }
   },
   validations: {
@@ -132,6 +162,9 @@ export default {
         required
       },
       last_name: {
+        required
+      },
+      father_name: {
         required
       },
       email: {
@@ -149,7 +182,21 @@ export default {
         required,
         minLength: minLength(10),
         maxLength: maxLength(10)
-      }
+      },
+      representative_mobile: {
+        minLength: minLength(11),
+        maxLength: maxLength(11)
+      },
+    }
+  },
+  async asyncData({$axios, params}) {
+    const maritalStatuses = await $axios.get('/marital-statuses');
+    const countries = await $axios.get('/countries');
+    let religions = await $axios.get('/religions');
+    return {
+      maritalStatuses: maritalStatuses.data.data,
+      countries: countries.data.data,
+      religions: religions.data.data,
     }
   },
   methods: {
@@ -167,6 +214,17 @@ export default {
   },
   mounted() {
     this.familyMember.household_id = this.$route.params.household
+  },
+  watch: {
+    maritalStatus: function () {
+      this.familyMember.marital_status = this.maritalStatus.value
+    },
+    religion: function () {
+      this.familyMember.religion = this.religion.value
+    },
+    nationality: function () {
+      this.familyMember.citizenship = this.nationality.id
+    },
   }
 }
 </script>
