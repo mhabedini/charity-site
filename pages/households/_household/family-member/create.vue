@@ -35,7 +35,7 @@
                      :submitted="submitted"
                      v-model="familyMember.email"/>
 
-              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
+              <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
 
               <gender v-model="familyMember.gender"/>
 
@@ -60,7 +60,7 @@
                                     v-model="familyMember.representative_mobile"
                                     :validation="this.$v.familyMember.representative_mobile"/>
 
-              <religion v-model="religion" :religions="religions"/>
+              <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
             </div>
           </div>
@@ -86,13 +86,12 @@ import FirstName from "@/components/inputs/FirstName";
 import LastName from "@/components/inputs/LastName";
 import FatherName from "@/components/inputs/FatherName";
 import Citizenship from "@/components/inputs/Citizenship";
-import Religion from "@/components/inputs/Religion";
 import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
 import Mobile from "@/components/inputs/Mobile";
 import Email from "@/components/inputs/Email";
-import MaritalStatus from "@/components/inputs/MaritalStatus";
 import Gender from "@/components/inputs/Gender";
+import Dropdown from "@/components/inputs/Dropdown";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
@@ -109,14 +108,13 @@ export default {
     DatePicker,
     FirstName,
     LastName,
+    Dropdown,
     FatherName,
     Citizenship,
-    Religion,
     NationalCode,
     Phone,
     Mobile,
     Email,
-    MaritalStatus,
     Gender,
     Representative,
     RepresentativeMobile,

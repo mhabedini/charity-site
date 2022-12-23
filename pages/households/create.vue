@@ -37,7 +37,7 @@
 
               <description v-model="household.description"/>
 
-              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
+              <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
 
               <gender v-model="household.user.gender"/>
 
@@ -63,13 +63,16 @@
                                     v-model="household.user.representative_mobile"
                                     :validation="this.$v.household.user.representative_mobile"/>
 
-              <charity-department-list v-model="charityDepartment" :charity-departments="charityDepartments"/>
+              <dropdown v-model="charityDepartment" :data="charityDepartments" :is-mandatory="true" title="موسسه خیریه"/>
 
-              <religion v-model="religion" :religions="religions"/>
+              <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
-              <housing-situation v-model="housingSituation" :housing-situations="housingSituations"/>
+              <dropdown v-model="housingSituation" :data="housingSituations" :is-mandatory="true" title="وضعیت خانه"/>
 
-              <supervisor-status v-model="supervisorStatus" :supervisor-statuses="supervisorStatuses"/>
+              <dropdown v-model="supervisorStatus"
+                        :data="supervisorStatuses"
+                        :is-mandatory="true"
+                        title="وضعیت سرپرست"/>
 
             </div>
           </div>
@@ -92,20 +95,16 @@ import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
 import Mobile from "@/components/inputs/Mobile";
 import Email from "@/components/inputs/Email";
-import MaritalStatus from "@/components/inputs/MaritalStatus";
+import Dropdown from "@/components/inputs/Dropdown";
 import Gender from "@/components/inputs/Gender";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
-import CharityDepartmentList from "@/components/inputs/CharityDepartmentList";
 import RepresentativeMobile from "~/components/inputs/RepresentativeMobile";
 import Description from "@/components/inputs/Description";
-import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
-import HousingSituation from "~/components/inputs/HousingSituation";
 import {housingSituations} from "~/components/housing-situatuations";
 import {supervisorStatuses} from "~/components/supervisor-statuses";
-import SupervisorStatus from "~/components/inputs/SupervisorStatus";
 
 
 export default {
@@ -117,9 +116,8 @@ export default {
   components: {
     Description,
     RepresentativeMobile,
+    Dropdown,
     DatePicker,
-    HousingSituation,
-    Religion,
     FirstName,
     LastName,
     FatherName,
@@ -127,13 +125,10 @@ export default {
     Phone,
     Mobile,
     Email,
-    MaritalStatus,
     Gender,
     Representative,
     Job,
     IsSadat,
-    CharityDepartmentList,
-    SupervisorStatus,
     Citizenship
   },
   data() {

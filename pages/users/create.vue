@@ -34,7 +34,7 @@
                      :submitted="submitted"
                      v-model="user.email"/>
 
-              <marital-status v-model="maritalStatus" :marital-statuses="maritalStatuses"/>
+              <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
 
               <gender v-model="user.gender"/>
 
@@ -55,7 +55,7 @@
 
               <representative v-model="user.representative"/>
 
-              <religion v-model="religion" :religions="religions"/>
+              <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
               <password :submitted="submitted"
                         v-model="user.password"
@@ -87,14 +87,13 @@ import NationalCode from "@/components/inputs/NationalCode";
 import Phone from "@/components/inputs/Phone";
 import Mobile from "@/components/inputs/Mobile";
 import Email from "@/components/inputs/Email";
-import MaritalStatus from "@/components/inputs/MaritalStatus";
 import Gender from "@/components/inputs/Gender";
+import Dropdown from "@/components/inputs/Dropdown";
 import Password from "@/components/inputs/Password";
 import ConfirmPassword from "@/components/inputs/ConfirmPassword";
 import Representative from "@/components/inputs/Representative";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
-import Religion from "@/components/inputs/Religion";
 import Citizenship from "~/components/inputs/Citizenship";
 
 export default {
@@ -110,11 +109,10 @@ export default {
     FatherName,
     NationalCode,
     Phone,
+    Dropdown,
     Mobile,
     Email,
-    MaritalStatus,
     Gender,
-    Religion,
     Password,
     ConfirmPassword,
     Representative,

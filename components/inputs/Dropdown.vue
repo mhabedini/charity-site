@@ -1,15 +1,15 @@
 <template>
   <div dir="rtl" class="form-group">
     <label>
-      وضعیت سرپرست
-      <span class="text-danger">*</span>
+      {{ title }}
+      <span class="text-danger" v-if="isMandatory">*</span>
     </label>
     <multiselect placeholder="انتخاب کنید"
                  selectedLabel="انتخاب شده"
                  selectLabel="لطفا انتخاب کنید"
                  deselectLabel="لطفا برای عدم انتخاب کلیک کنید"
-                 v-model="mutableSupervisorStatus"
-                 :options="supervisorStatuses"
+                 v-model="mutableSelected"
+                 :options="data"
                  label="label"
                  track-by="value"/>
   </div>
@@ -22,20 +22,20 @@ export default {
   components: {
     Multiselect
   },
-  props: ['supervisorStatus', 'supervisorStatuses'],
+  props: ['selected', 'title', 'data', 'isMandatory'],
   model: {
-    prop: 'supervisorStatus',
+    prop: 'selected',
     event: 'change'
   },
   computed: {
-    mutableSupervisorStatus: {
+    mutableSelected: {
       get: function () {
-        return this.supervisorStatus
+        return this.selected
       },
-      set: function (supervisorStatus) {
-        this.$emit('change', supervisorStatus)
+      set: function (selected) {
+        this.$emit('change', selected)
       }
     }
   }
-}
+};
 </script>
