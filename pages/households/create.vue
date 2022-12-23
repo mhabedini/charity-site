@@ -63,9 +63,12 @@
                                     v-model="household.user.representative_mobile"
                                     :validation="this.$v.household.user.representative_mobile"/>
 
-              <dropdown v-model="charityDepartment" :data="charityDepartments" :is-mandatory="true" title="موسسه خیریه"/>
+              <dropdown v-model="charityDepartment" :data="charityDepartments" :is-mandatory="true"
+                        title="موسسه خیریه"/>
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
+
+              <dropdown v-model="education" :data="educationDegrees" :is-mandatory="false" title="سطح تحصیلات"/>
 
               <dropdown v-model="housingSituation" :data="housingSituations" :is-mandatory="true" title="وضعیت خانه"/>
 
@@ -149,6 +152,7 @@ export default {
           citizenship: null,
           is_sadat: false,
           religion: null,
+          education: null,
           representative: null,
           representative_mobile: null,
         },
@@ -167,6 +171,8 @@ export default {
       housingSituations: Array,
       supervisorStatus: null,
       supervisorStatuses: Array,
+      education: null,
+      educationDegrees: Array,
       maritalStatus: null,
       maritalStatuses: Array,
       submitted: false,
@@ -212,6 +218,7 @@ export default {
     let charityDepartments = await $axios.get('/charity-departments')
     let religions = await $axios.get('/religions')
     let countries = await $axios.get('/countries');
+    let educationDegrees = await $axios.get('/education-degrees');
     let maritalStatuses = await $axios.get('/marital-statuses');
 
     charityDepartments = charityDepartments.data.data.map(function (department) {
@@ -224,6 +231,7 @@ export default {
       housingSituations: housingSituations,
       religions: religions.data.data,
       supervisorStatuses: supervisorStatuses,
+      educationDegrees: educationDegrees.data.data,
       countries: countries.data.data,
       charityDepartments: charityDepartments,
       maritalStatuses: maritalStatuses.data.data,
@@ -263,6 +271,9 @@ export default {
     },
     maritalStatus: function () {
       this.household.user.marital_status = this.maritalStatus.value
+    },
+    education: function () {
+      this.user.education = this.education.value
     }
   }
 }

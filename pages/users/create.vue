@@ -57,6 +57,8 @@
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
+              <dropdown v-model="education" :data="educationDegrees" :is-mandatory="false" title="سطح تحصیلات"/>
+
               <password :submitted="submitted"
                         v-model="user.password"
                         :validation="this.$v.user.password"/>
@@ -139,6 +141,7 @@ export default {
         citizenship: null,
         is_sadat: false,
         religion: null,
+        education: null,
         representative: null,
         password: null,
         confirmPassword: null,
@@ -147,6 +150,8 @@ export default {
       religion: null,
       religions: Array,
       nationality: null,
+      education: null,
+      educationDegrees: Array,
       countries: Array,
       maritalStatus: null,
       maritalStatuses: Array,
@@ -195,10 +200,12 @@ export default {
   async asyncData({$axios}) {
     let religions = await $axios.get('/religions');
     let countries = await $axios.get('/countries');
+    let educationDegrees = await $axios.get('/education-degrees');
     let maritalStatuses = await $axios.get('/marital-statuses');
     return {
       countries: countries.data.data,
       religions: religions.data.data,
+      educationDegrees: educationDegrees.data.data,
       maritalStatuses: maritalStatuses.data.data,
     }
   },
@@ -223,6 +230,9 @@ export default {
     },
     maritalStatus: function () {
       this.user.marital_status = this.maritalStatus.value
+    },
+    education: function () {
+      this.user.education = this.education.value
     }
   }
 }

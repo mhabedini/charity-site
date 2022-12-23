@@ -62,6 +62,8 @@
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
+              <dropdown v-model="education" :data="educationDegrees" :is-mandatory="false" title="سطح تحصیلات"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -140,6 +142,7 @@ export default {
         citizenship: null,
         religion: null,
         is_sadat: false,
+        education: null,
         representative: null,
         representative_mobile: null,
         household_id: null
@@ -150,6 +153,8 @@ export default {
       maritalStatus: null,
       countries: Array,
       religion: null,
+      education: null,
+      educationDegrees: Array,
       nationality: null,
       religions: Array,
     }
@@ -191,9 +196,11 @@ export default {
     const maritalStatuses = await $axios.get('/marital-statuses');
     const countries = await $axios.get('/countries');
     let religions = await $axios.get('/religions');
+    let educationDegrees = await $axios.get('/education-degrees');
     return {
       maritalStatuses: maritalStatuses.data.data,
       countries: countries.data.data,
+      educationDegrees: educationDegrees.data.data,
       religions: religions.data.data,
     }
   },
@@ -223,6 +230,9 @@ export default {
     nationality: function () {
       this.familyMember.citizenship = this.nationality.id
     },
+    education: function () {
+      this.familyMember.education = this.education.value
+    }
   }
 }
 </script>

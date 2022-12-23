@@ -58,6 +58,8 @@
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
+              <dropdown v-model="education" :data="educationDegrees" :is-mandatory="false" title="سطح تحصیلات"/>
+
               <password :submitted="submitted"
                         v-model="user.password"
                         :validation="this.$v.user.password"/>
@@ -142,6 +144,7 @@ export default {
         marital_status: null,
         job: null,
         religion: null,
+        education: null,
         citizenship: null,
         representative: null,
         password: null,
@@ -153,6 +156,8 @@ export default {
       religions: Array,
       maritalStatus: null,
       maritalStatuses: Array,
+      education: null,
+      educationDegrees: Array,
       submitted: false,
     }
   },
@@ -197,6 +202,7 @@ export default {
     const user = await $axios.get(`/users/${params.id}`)
     let religions = await $axios.get('/religions');
     let countries = await $axios.get('/countries');
+    let educationDegrees = await $axios.get('/education-degrees');
     let maritalStatuses = await $axios.get('/marital-statuses');
     return {
       user: user.data.data,
@@ -204,6 +210,8 @@ export default {
       countries: countries.data.data,
       religion: religions.data.data.find(religion => religion.value === user.data.data.religion),
       religions: religions.data.data,
+      education: educationDegrees.data.data.find(degree => degree.value === user.data.data.education),
+      educationDegrees: educationDegrees.data.data,
       maritalStatus: maritalStatuses.data.data.find(maritalStatus => maritalStatus.value === user.data.data.marital_status),
       maritalStatuses: maritalStatuses.data.data,
     }
@@ -218,7 +226,6 @@ export default {
           .then(value => this.$showSuccessfulToast())
           .catch(reason => {
             this.$showUnsuccessfulToast()
-            console.log(reason.response.data)
           })
       }
     }
@@ -232,6 +239,9 @@ export default {
     },
     maritalStatus: function () {
       this.user.marital_status = this.maritalStatus.value
+    },
+    education: function () {
+      this.user.education = this.education.value
     }
   },
   mounted() {

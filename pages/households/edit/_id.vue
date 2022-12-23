@@ -67,6 +67,8 @@
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
+              <dropdown v-model="education" :data="educationDegrees" :is-mandatory="false" title="سطح تحصیلات"/>
+
               <dropdown v-model="housingSituation" :data="housingSituations" :is-mandatory="true" title="وضعیت خانه"/>
 
               <dropdown v-model="supervisorStatus"
@@ -157,6 +159,7 @@ export default {
           marital_status: null,
           job: null,
           religion: null,
+          education: null,
           citizenship: null,
           representative: null,
           representative_mobile: null,
@@ -173,6 +176,8 @@ export default {
       supervisorStatus: null,
       supervisorStatuses: Array,
       maritalStatus: null,
+      education: null,
+      educationDegrees: Array,
       maritalStatuses: Array,
       submitted: false,
     }
@@ -218,6 +223,7 @@ export default {
     let charityDepartments = await $axios.get('/charity-departments')
     let countries = await $axios.get('/countries');
     let religions = await $axios.get('/religions')
+    let educationDegrees = await $axios.get('/education-degrees');
     let maritalStatuses = await $axios.get('/marital-statuses');
     charityDepartments = charityDepartments.data.data.map(function (department) {
       return {
@@ -236,6 +242,8 @@ export default {
       countries: countries.data.data,
       charityDepartments: charityDepartments,
       charityDepartment: charityDepartments.find(charityDepartment => charityDepartment.value === household.data.data.charity_department_id),
+      education: educationDegrees.data.data.find(degree => degree.value === household.data.data.user.education),
+      educationDegrees: educationDegrees.data.data,
       household: household.data.data,
       maritalStatus: maritalStatuses.data.data.find(maritalStatus => maritalStatus.value === household.data.data.user.marital_status),
       maritalStatuses: maritalStatuses.data.data,
@@ -277,6 +285,9 @@ export default {
     },
     maritalStatus: function () {
       this.household.user.marital_status = this.maritalStatus.value
+    },
+    education: function () {
+      this.household.user.education = this.education.value
     }
   }
 }
