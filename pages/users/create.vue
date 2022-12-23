@@ -25,6 +25,20 @@
 
               <citizenship v-model="nationality" :countries="countries"/>
 
+              <dropdown v-model="state" :data="states" :is-mandatory="true" title="استان"/>
+
+              <dropdown v-model="city" :data="cities" :is-mandatory="true" title="شهر"/>
+
+              <dropdown v-model="district" :data="districts" :is-mandatory="true" title="محله"/>
+
+              <postal-code :validation="this.$v.address.postal_code"
+                           :submitted="submitted"
+                           v-model="address.postal_code"/>
+
+              <long-text v-model="address.address" title="آدرس" placeholder="آدرس را وارد کنید"
+                         :is-mandatory="false"
+                         :rows="3"/>
+
               <div class="form-group">
                 <label>تاریخ تولد</label>
                 <date-picker dir="rtl" v-model="user.birth_date" format="YYYY-MM-DD" display-format="jYYYY-jMM-jDD"/>
@@ -33,12 +47,6 @@
               <email :validation="this.$v.user.email"
                      :submitted="submitted"
                      v-model="user.email"/>
-
-              <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
-
-              <gender v-model="user.gender"/>
-
-              <is-sadat v-model="user.is_sadat"/>
             </div>
 
             <div class="col-lg-6">
@@ -67,6 +75,12 @@
                                 v-model="user.confirmPassword"
                                 :validation="this.$v.user.confirmPassword"/>
 
+              <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
+
+              <gender v-model="user.gender"/>
+
+              <is-sadat v-model="user.is_sadat"/>
+
             </div>
           </div>
           <div class="form-group text-right m-b-0">
@@ -94,9 +108,11 @@ import Dropdown from "@/components/inputs/Dropdown";
 import Password from "@/components/inputs/Password";
 import ConfirmPassword from "@/components/inputs/ConfirmPassword";
 import Representative from "@/components/inputs/Representative";
+import PostalCode from "@/components/inputs/PostalCode";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import Citizenship from "~/components/inputs/Citizenship";
+import LongText from "@/components/inputs/LongText";
 
 export default {
   head() {
@@ -109,6 +125,7 @@ export default {
     FirstName,
     LastName,
     FatherName,
+    PostalCode,
     NationalCode,
     Phone,
     Dropdown,
@@ -121,6 +138,7 @@ export default {
     Job,
     Switches,
     IsSadat,
+    LongText,
     Citizenship
   },
   data() {
@@ -146,6 +164,14 @@ export default {
         password: null,
         confirmPassword: null,
       },
+      address: {
+        state_id: null,
+        city_id: null,
+        district_id: null,
+        address: '',
+        postal_code: null,
+        lat_long: null,
+      },
       gender: '',
       religion: null,
       religions: Array,
@@ -154,6 +180,12 @@ export default {
       educationDegrees: Array,
       countries: Array,
       maritalStatus: null,
+      states: Array,
+      state: null,
+      cities: Array,
+      city: null,
+      districts: Array,
+      district: null,
       maritalStatuses: Array,
       submitted: false,
     }
@@ -195,16 +227,29 @@ export default {
         required,
         sameAsPassword: sameAs('password')
       }
+    },
+    address: {
+      postal_code: {
+        required,
+        minLength: minLength(10),
+        maxLength: maxLength(10)
+      },
     }
   },
   async asyncData({$axios}) {
-    let religions = await $axios.get('/religions');
-    let countries = await $axios.get('/countries');
-    let educationDegrees = await $axios.get('/education-degrees');
-    let maritalStatuses = await $axios.get('/marital-statuses');
+    const religions = await $axios.get('/religions');
+    const countries = await $axios.get('/countries');
+    const states = await $axios.get('/states')
+    const cities = await $axios.get('/cities')
+    const districts = await $axios.get('/districts')
+    const educationDegrees = await $axios.get('/education-degrees');
+    const maritalStatuses = await $axios.get('/marital-statuses');
     return {
       countries: countries.data.data,
       religions: religions.data.data,
+      states: states.data.data,
+      cities: cities.data.data,
+      districts: districts.data.data,
       educationDegrees: educationDegrees.data.data,
       maritalStatuses: maritalStatuses.data.data,
     }
@@ -215,25 +260,39 @@ export default {
       if (this.$v.$invalid) {
         this.submitted = true
       } else {
-        await this.$axios.post('/users', this.user)
-          .then(value => this.$showSuccessfulToast())
+        const self = this
+        const user = await this.$axios.post('/users', this.user)
+          .then(function (response) {
+            self.$showSuccessfulToast();
+            const userId = response.data.data.id
+            self.$axios.post(`/users/${userId}/addresses`, self.address)
+          })
           .catch(reason => this.$showUnsuccessfulToast())
       }
     },
   },
   watch: {
     religion: function () {
-      this.user.religion = this.religion.value
+      this.user.religion = this.religion?.value
     },
     nationality: function () {
-      this.user.citizenship = this.nationality.id
+      this.user.citizenship = this.nationality?.id
     },
     maritalStatus: function () {
-      this.user.marital_status = this.maritalStatus.value
+      this.user.marital_status = this.maritalStatus?.value
     },
     education: function () {
-      this.user.education = this.education.value
-    }
+      this.user.education = this.education?.value
+    },
+    state: function () {
+      this.address.state_id = this.state?.value
+    },
+    city: function () {
+      this.address.city_id = this.city?.value
+    },
+    district: function () {
+      this.address.district_id = this.district?.value
+    },
   }
 }
 </script>

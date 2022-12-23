@@ -1,12 +1,12 @@
 <template>
   <div class="form-group">
     <label for="description">
-      توضیحات
+      {{ title }}
     </label>
     <textarea id="description" :value="value" name="description" class="form-control"
-           :class="{ 'is-invalid': submitted && this.validation.$error }" type="text"
-           placeholder="توضیحات را وارد کنید"
-           @input="$emit('update', $event.target.value)" rows="8"/>
+              :class="{ 'is-invalid': submitted && this.validation.$error }" type="text"
+              :placeholder="placeholder"
+              @input="$emit('update', $event.target.value)" :rows="rows"/>
     <div v-if="submitted && !this.validation.required" class="invalid-feedback">ورود این مقدار لازم
       است
     </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ["value", "submitted", "validation"],
+  props: ["value", "submitted", "validation", 'title', 'placeholder', 'isMandatory', 'rows'],
   model: {
     prop: "value",
     event: "update"

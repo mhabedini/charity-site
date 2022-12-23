@@ -35,7 +35,9 @@
                      :submitted="submitted"
                      v-model="household.user.email"/>
 
-              <description v-model="household.description"/>
+              <long-text v-model="household.description" title="توضیحات" placeholder="توضیحات را وارد کنید"
+                         :is-mandatory="false"
+                         :rows="8"/>
 
               <dropdown v-model="maritalStatus" :data="maritalStatuses" :is-mandatory="true" title="وضعیت تاهل"/>
 
@@ -63,7 +65,8 @@
                                     v-model="household.user.representative_mobile"
                                     :validation="this.$v.household.user.representative_mobile"/>
 
-              <dropdown v-model="charityDepartment" :data="charityDepartments" :is-mandatory="true" title="موسسه خیریه"/>
+              <dropdown v-model="charityDepartment" :data="charityDepartments" :is-mandatory="true"
+                        title="موسسه خیریه"/>
 
               <dropdown v-model="religion" :data="religions" :is-mandatory="true" title="مذهب"/>
 
@@ -106,10 +109,11 @@ import RepresentativeMobile from "@/components/inputs/RepresentativeMobile";
 import Job from "@/components/inputs/Job";
 import IsSadat from "@/components/inputs/IsSadat";
 import FatherName from "~/components/inputs/FatherName";
-import Description from "~/components/inputs/Description";
+import Description from "@/components/inputs/LongText";
 import Citizenship from "~/components/inputs/Citizenship";
 import {housingSituations} from "~/components/housing-situatuations";
 import {supervisorStatuses} from "~/components/supervisor-statuses";
+import LongText from "@/components/inputs/LongText";
 
 
 export default {
@@ -119,6 +123,7 @@ export default {
     };
   },
   components: {
+    LongText,
     Multiselect,
     Citizenship,
     DatePicker,
