@@ -1,4 +1,4 @@
-# bazarshahr-vendor
+# charity-vendor
 
 ## Build Setup
 
